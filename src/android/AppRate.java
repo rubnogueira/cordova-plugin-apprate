@@ -18,6 +18,10 @@ import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
 
 public class AppRate extends CordovaPlugin {
+  public Activity getCurrentActivity() {
+    return this.cordova.getActivity();
+  }
+
   @Override
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
     try {
@@ -39,14 +43,14 @@ public class AppRate extends CordovaPlugin {
         return true;
       }
       if (action.equals("launchReview")) {
-        Activity activity = this.cordova.getActivity();
         ReviewManager manager = ReviewManagerFactory.create(activity);
         Task<ReviewInfo> request = manager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
           if (task.isSuccessful()) {
             LOG.d("AppRate", "request review success");
             ReviewInfo reviewInfo = task.getResult();
-            Task<Void> flow = manager.launchReviewFlow(activity, reviewInfo);
+            Task<Void> flow = manager.launchReviewFlow(getCurrentActivity(), reviewInfo);
+
             flow.addOnCompleteListener(launchTask -> {
               if (task.isSuccessful()) {
                 LOG.d("AppRate", "launch review success");

@@ -60,7 +60,7 @@ public class AppRate extends CordovaPlugin {
                 LOG.d("AppRate", "launch review success", task.getResult());
                 callbackContext.success();
               } else {
-                Exception error = task.getException();
+                Exception error = launchTask.getException();
                 LOG.d("AppRate", "Failed to launch review", error);
                 callbackContext.error("Failed to launch review - " + error.getMessage());
               }

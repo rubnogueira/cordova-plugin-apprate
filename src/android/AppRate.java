@@ -55,19 +55,33 @@ public class AppRate extends CordovaPlugin {
                 LOG.d("ReviewDialog", "failed in reviewing process", error);
             });
 
-            flow.addOnCompleteListener(launchTask -> {
-              if (launchTask.isSuccessful()) {
-                LOG.d("AppRate", "ola");
-                LOG.d("AppRate", launchTask.getResult().toString());
-                // LOG.d("AppRate", "launch review success", launchTask.getResult().getMessage());
-                // LOG.d("AppRate", "iscomplete", launchTask.isComplete());
+            flow.addOnCompleteListener(new OnCompleteListener<Void>() {
+              @Override
+              public void onComplete(@NonNull Task<Void> task2) {
+                LOG.d("AppRate", "iscomplete", task2.isComplete());
                 callbackContext.success();
-              } else {
-                Exception error = launchTask.getException();
-                LOG.d("AppRate", "Failed to launch review", error);
-                callbackContext.error("Failed to launch review - " + error.getMessage());
               }
-            });
+            }
+              
+            
+            
+            
+            // launchTask -> {
+            //   if (launchTask.isSuccessful()) {
+            //     LOG.d("AppRate", "ola");
+            //     LOG.d("AppRate", launchTask.getResult().toString());
+            //     LOG.d("AppRate", "iscomplete", launchTask.isComplete().toString());
+
+            //     // LOG.d("AppRate", "launch review success", launchTask.getResult().getMessage());
+            //     // LOG.d("AppRate", "iscomplete", launchTask.isComplete());
+            //     callbackContext.success();
+            //   } else {
+            //     Exception error = launchTask.getException();
+            //     LOG.d("AppRate", "Failed to launch review", error);
+            //     callbackContext.error("Failed to launch review - " + error.getMessage());
+            //   }
+            // }
+            );
           } else {
             Exception error = task.getException();
             LOG.d("AppRate", "Failed to launch review", error);

@@ -49,7 +49,7 @@ public class AppRate extends CordovaPlugin {
           if (task.isSuccessful()) {
             LOG.d("AppRate", "request review success");
             ReviewInfo reviewInfo = task.getResult();
-            Task<Void> flow = manager.launchReviewFlow(getCurrentActivity(), reviewInfo);
+            Task<Void> flow = manager.launchReviewFlow(this.cordova.getActivity().getWindow().getContext(), reviewInfo);
             flow.addOnFailureListener(failed -> {
                 Exception error = task.getException();
                 Log.i("ReviewDialog", "failed in reviewing process", error);
@@ -57,7 +57,7 @@ public class AppRate extends CordovaPlugin {
 
             flow.addOnCompleteListener(launchTask -> {
               if (task.isSuccessful()) {
-                LOG.d("AppRate", "launch review success");
+                LOG.d("AppRate", "launch review success", task.getResult());
                 callbackContext.success();
               } else {
                 Exception error = task.getException();

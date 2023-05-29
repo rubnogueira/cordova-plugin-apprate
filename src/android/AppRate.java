@@ -11,11 +11,13 @@ import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageManager;
 import android.content.pm.ApplicationInfo;
+import androidx.annotation.NonNull;
 
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
+import com.google.android.play.core.tasks.OnCompleteListener;
 
 public class AppRate extends CordovaPlugin {
   public Activity getCurrentActivity() {

@@ -56,7 +56,7 @@ public class AppRate extends CordovaPlugin {
             });
 
             flow.addOnCompleteListener(launchTask -> {
-              if (task.isSuccessful()) {
+              if (launchTask.isSuccessful()) {
                 LOG.d("AppRate", "launch review success", task.getResult());
                 callbackContext.success();
               } else {
